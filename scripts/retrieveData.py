@@ -98,9 +98,14 @@ def runQuerySetPractice():
     for book in recentFiction:
         print(f"- {book.title} ({book.published_year})")
 
+    print("\n Fiction books published after 1903:")
+    recentFiction = Book.objects.filter(genre='Fiction').filter(published_year__gt=1903).exclude(title__icontains = 'farm')
+    for book in recentFiction:
+        print(f"- {book.title} ({book.published_year})")
+
     # Using Q object for OR condition: books by title or genre
     print("\n Books with 'war' in title OR genre is 'History':")
-    qBooks = Book.objects.filter(Q(title__icontains='war') | Q(genre='History'))
+    qBooks = Book.objects.filter(Q(title__icontains='farm') | Q(genre='History'))
 
     for book in qBooks:
         print(f"- {book.title} ({book.genre})")
